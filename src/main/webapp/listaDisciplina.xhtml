@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="./template/templatePadrao.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="lista">
+            <h:dataTable value="#{disciplinaBean.disciplinas}" var="e">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Descrição" />
+                    </f:facet>
+
+                    <h:outputText value="#{e.descricao}" />
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Eixo Profissional" />
+                    </f:facet>
+
+                    <h:outputText value="#{e.eixoProfissional.descricao}" />
+                </h:column>
+
+                <h:column >
+                    <f:facet name="header">
+                        <h:outputText value="Ações" />
+                    </f:facet>
+
+                    <h:commandLink value="remover" action="#{disciplinaBean.remover}"
+                                        onclick="if(!confirm('Deseja realmente remover esta disciplina?')) {return false;}">
+                        <f:setPropertyActionListener value="#{e}" target="#{disciplinaBean.disciplina}"/>
+                    </h:commandLink> 
+                    <br/>
+                    <p:commandLink value="editar" oncomplete="PF('alterarDisciplinaDialog').show()" update=":lista:dialogAlterar">
+                        <f:setPropertyActionListener value="#{e}" target="#{disciplinaBean.disciplina}"/>
+                    </p:commandLink>
+
+                </h:column>
+            </h:dataTable>
+            <p:dialog id="dialogAlterar" header="Alterar Disciplina" widgetVar="alterarDisciplinaDialog" modal="true" height="100">
+                <h:panelGrid columns="2" >
+                    <h:outputLabel value="Eixo Profissional" for="somEixo" />
+                    <h:selectOneMenu value="#{disciplinaBean.disciplina.eixoProfissional}" id="somEixo" converter="eixoProfissionalConverter">
+                        <f:selectItems value="#{disciplinaBean.eixosProfissionais}" var="eixo" itemValue="#{eixo}" itemLabel="#{eixo.descricao}" />
+                    </h:selectOneMenu>              
+
+                    <h:outputLabel value="Descrição" for="itDescricao" />
+                    <h:inputText value="#{disciplinaBean.disciplina.descricao}" id="itDescricao" />
+
+                    <h:inputHidden value="#{disciplinaBean.disciplina.id}" />
+                    <h:commandButton value="Alterar" action="#{disciplinaBean.atualizar}" />
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

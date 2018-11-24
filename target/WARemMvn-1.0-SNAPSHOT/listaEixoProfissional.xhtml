@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="./template/templatePadrao.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="lista">
+            <h:dataTable value="#{eixoProfissionalBean.eixosProfissionais}" var="e">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Descrição" />
+                    </f:facet>
+
+                    <h:outputText value="#{e.descricao}" />
+                </h:column>
+
+                <h:column >
+                    <f:facet name="header">
+                        <h:outputText value="Ações" />
+                    </f:facet>
+
+                    <h:commandLink value="remover" action="#{eixoProfissionalBean.remover}"
+                                        onclick="if(!confirm('Deseja realmente remover este eixo profissional?')) {return false;}">
+                        <f:setPropertyActionListener value="#{e}" target="#{eixoProfissionalBean.eixoProfissional}"/>
+                    </h:commandLink> 
+                    <br/>
+                    <p:commandLink value="editar" oncomplete="PF('alterarEixoProfissionalDialog').show()" update=":lista:dialogAlterar">
+                        <f:setPropertyActionListener value="#{e}" target="#{eixoProfissionalBean.eixoProfissional}"/>
+                    </p:commandLink>
+
+                </h:column>
+            </h:dataTable>
+            <p:dialog id="dialogAlterar" header="Alterar Eixo Profissional" widgetVar="alterarEixoProfissionalDialog" modal="true" height="100">
+                <h:panelGrid columns="2" >
+                    <h:outputLabel value="Descrição" for="itDescricao" />
+                    <h:inputText value="#{eixoProfissionalBean.eixoProfissional.descricao}" id="itDescricao" />
+
+                    <h:inputHidden value="#{eixoProfissionalBean.eixoProfissional.id}" />
+
+                    <h:commandButton value="Alterar" action="#{eixoProfissionalBean.atualizar}" />
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

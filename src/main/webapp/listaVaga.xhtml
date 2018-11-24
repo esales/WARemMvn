@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="./template/templatePadrao.xhtml"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="lista">
+            <h:dataTable value="#{vagaBean.vagas}" var="v">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Campus" />
+                    </f:facet>
+
+                    <h:outputText value="#{v.campus.descricao}" />
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Disciplina" />
+                    </f:facet>
+
+                    <h:outputText value="#{v.disciplina.descricao}" />
+                </h:column>
+
+                <h:column >
+                    <f:facet name="header">
+                        <h:outputText value="Ações" />
+                    </f:facet>
+
+                    <h:commandLink value="remover" action="#{vagaBean.remover}"
+                                        onclick="if(!confirm('Deseja realmente remover esta vaga?')) {return false;}">
+                        <f:setPropertyActionListener value="#{v}" target="#{vagaBean.vaga}"/>
+                    </h:commandLink> 
+                    <br/>
+                    <p:commandLink value="editar" oncomplete="PF('alterarVagaDialog').show()" update=":lista:dialogAlterar">
+                        <f:setPropertyActionListener value="#{v}" target="#{vagaBean.vaga}"/>
+                    </p:commandLink>
+
+                </h:column>
+            </h:dataTable>
+            <p:dialog id="dialogAlterar" header="Alterar Vaga" widgetVar="alterarVagaDialog" modal="true" height="100">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="campus" for="somCampus" />
+                    <h:selectOneMenu value="#{vagaBean.vaga.campus}" converter="campusConverter" id="somCampus">
+                        <f:selectItems value="#{vagaBean.campi}" var="c" itemLabel="#{c.descricao}" itemValue="#{c}" />
+                    </h:selectOneMenu>
+
+                    <h:outputLabel value="Disciplina" for="somDisciplina" />
+                    <h:selectOneMenu value="#{vagaBean.vaga.disciplina}" converter="disciplinaConverter" id="somDisciplina">
+                        <f:selectItems value="#{vagaBean.disciplinas}" var="d" itemLabel="#{d.descricao}" itemValue="#{d}" />
+                    </h:selectOneMenu>
+
+                    <h:inputHidden value="#{vagaBean.vaga.id}" />
+                    <h:commandButton value="Alterar" action="#{campusBean.atualizar()}" />
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

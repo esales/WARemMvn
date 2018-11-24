@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="./template/templatePadrao.xhtml">
+
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Eixo Profissional" for="somEixo" />
+                <h:selectOneMenu value="#{disciplinaBean.disciplina.eixoProfissional}" id="somEixo" converter="eixoProfissionalConverter">
+                    <f:selectItems value="#{disciplinaBean.eixosProfissionais}" var="eixo" itemValue="#{eixo}" itemLabel="#{eixo.descricao}" />
+                </h:selectOneMenu>
+                
+                <h:outputLabel value="Descrição" for="itDescricao" />
+                <h:inputText value="#{disciplinaBean.disciplina.descricao}" id="itDescricao" />
+
+                <h:commandButton value="Cadastrar" action="#{disciplinaBean.cadastrar}" />
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
