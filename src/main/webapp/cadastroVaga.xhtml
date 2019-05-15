@@ -7,6 +7,7 @@
 
     <ui:define name="content">
         <h:form>
+            <h:outputText class="tituloPagina" value="Cadastro de Vaga" />
             <h:panelGrid columns="2">
                 <h:outputLabel value="campus" for="somCampus" />
                 <h:selectOneMenu value="#{vagaBean.vaga.campus}" converter="campusConverter" id="somCampus">

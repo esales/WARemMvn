@@ -19,9 +19,9 @@ public class Filtro implements Filter{
      HttpServletResponse resposta = (HttpServletResponse) resp;
      HttpSession sessao = requisicao.getSession(false);
      
-     String loginURI = requisicao.getContextPath() + "/index.xhtml";
+     String loginURI = requisicao.getContextPath() + "/login.xhtml";
  
-     boolean logado = sessao != null && sessao.getAttribute("user") != null;
+     boolean logado = sessao != null && sessao.getAttribute("perfil") != null;
      boolean paginaLogin = requisicao.getRequestURI().equals(loginURI);
      boolean requisicaoRecurso = requisicao.getRequestURI().startsWith(requisicao.getContextPath() + ResourceHandler.RESOURCE_IDENTIFIER);
  

@@ -1,13 +1,30 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         <h:form>
-            <h:panelGrid columns="6">
+            <p:menubar>
+                <p:submenu label="Cadastro">
+                    <p:menuitem value="Campus" url="cadastroCampus.xhtml" />
+                    <p:menuitem value="Disciplina" url="cadastroDisciplina.xhtml" />
+                    <p:menuitem value="Eixo Profissional" url="cadastroEixoProfissional.xhtml" />                    
+                    <p:menuitem value="Professor" url="cadastroProfessor.xhtml" />
+                    <p:menuitem value="Vaga" url="cadastroVaga.xhtml" />
+                </p:submenu>
+                <p:submenu label="Lista">
+                    <p:menuitem value="Campus" url="listaCampus.xhtml" />
+                    <p:menuitem value="Disciplina" url="listaDisciplina.xhtml" />
+                    <p:menuitem value="Eixo Profissional" url="listaEixoProfissional.xhtml" />
+                    <p:menuitem value="Professor" url="listaProfessor.xhtml" />
+                    <p:menuitem value="Vaga" url="listaVaga.xhtml" />
+                </p:submenu>
+            </p:menubar>
+<!--            <h:panelGrid columns="6">
                 <h:panelGroup>
                     <h:commandLink value="cadastro eixo" action="cadastroEixoProfissional" />
                     <br/>
@@ -19,7 +36,7 @@
                     <h:commandLink value="lista disciplina" action="listaDisciplina" />    
                 </h:panelGroup>
                 <h:panelGroup>
-                    <h:commandLink value="cadastro campus" action="cadastroCampus" />
+                    <h:commandLink id="itmCadCampus" value="cadastro campus" action="cadastroCampus" />
                     <br/>
                     <h:commandLink value="lista campus" action="listaCampus" />   
                 </h:panelGroup>
@@ -35,7 +52,7 @@
                     <br/>
                     <h:commandLink value="lista vaga" action="listaVaga" />   
                 </h:panelGroup>
-            </h:panelGrid>
+            </h:panelGrid>-->
         </h:form>
     </h:body>
 </html>

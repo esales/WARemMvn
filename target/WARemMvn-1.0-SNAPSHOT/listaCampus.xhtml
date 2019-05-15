@@ -7,6 +7,7 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
+        <h:outputText class="tituloPagina" value="Lista de campi" />
         <h:form id="lista">
             <h:dataTable value="#{campusBean.campi}" var="e">
                 <h:column>

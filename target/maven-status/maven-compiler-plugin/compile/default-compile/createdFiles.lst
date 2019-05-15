@@ -1,4 +1,5 @@
 dao\VagaDAO.class
+bean\LoginBean.class
 dao\DisciplinaDAO.class
 utils\Filtro.class
 dao\EditalDAO.class

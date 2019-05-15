@@ -7,6 +7,7 @@
 
     <ui:define name="content">
         <h:form>
+            <h:outputText class="tituloPagina" value="Cadastro de Disciplina" />
             <h:panelGrid columns="2">
                 <h:outputLabel value="Eixo Profissional" for="somEixo" />
                 <h:selectOneMenu value="#{disciplinaBean.disciplina.eixoProfissional}" id="somEixo" converter="eixoProfissionalConverter">
