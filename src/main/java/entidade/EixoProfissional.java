@@ -1,10 +1,12 @@
 package entidade;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class EixoProfissional implements Serializable{
@@ -16,6 +18,9 @@ public class EixoProfissional implements Serializable{
     
     private String descricao;
 
+    @OneToMany(mappedBy="eixoProfissional")
+    private List<Disciplina> disciplinas;
+    
     public EixoProfissional() {
     }
 
@@ -37,6 +42,14 @@ public class EixoProfissional implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
+    public void setDisciplinas(List<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
     }
     
     @Override

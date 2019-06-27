@@ -9,41 +9,65 @@
     <ui:define name="content">
         <h:outputText class="tituloPagina" value="Lista de campi" />
         <h:form id="lista">
-            <h:dataTable value="#{campusBean.campi}" var="e">
-                <h:column>
+            <p:dataTable value="#{campusBean.campi}" var="e" id="dtLista">
+                <p:column>
                     <f:facet name="header">
                         <h:outputText value="Descrição" />
                     </f:facet>
 
                     <h:outputText value="#{e.descricao}" />
-                </h:column>
+                </p:column>
 
-                <h:column >
+                <p:column >
                     <f:facet name="header">
                         <h:outputText value="Ações" />
                     </f:facet>
 
-                    <h:commandLink value="remover" action="#{campusBean.remover}"
-                                        onclick="if(!confirm('Deseja realmente remover este campus?')) {return false;}">
+                    <p:commandLink value="remover" 
+                                   action="#{campusBean.remover()}" 
+                                   update=":dialogExcluir"
+                                   process="@this">
                         <f:setPropertyActionListener value="#{e}" target="#{campusBean.campus}"/>
-                    </h:commandLink> 
-                    <br/>
-                    <p:commandLink value="editar" oncomplete="PF('alterarCampusDialog').show()" update=":lista:dialogAlterar">
+                        <p:confirm header="header do confirm" message="message do confirm" icon="pi pi-exclamation-triangle" />
+                    </p:commandLink>
+
+                    <h:outputText value="  " />
+                    <p:commandLink value="editar" oncomplete="PF('alterarCampusDialog').show()" update="dialogAlterar" >
                         <f:setPropertyActionListener value="#{e}" target="#{campusBean.campus}"/>
                     </p:commandLink>
 
-                </h:column>
-            </h:dataTable>
-            <p:dialog id="dialogAlterar" header="Alterar Campus" widgetVar="alterarCampusDialog" modal="true" height="100">
-                <h:panelGrid columns="2" >
-                    <h:outputLabel value="Descrição" for="itDescricao" />
-                    <h:inputText value="#{campusBean.campus.descricao}" id="itDescricao" />
+                </p:column>
+            </p:dataTable>
 
-                    <h:inputHidden value="#{campusBean.campus.id}" />
-
-                    <h:commandButton value="Alterar" action="#{campusBean.atualizar}" />
-                </h:panelGrid>
-            </p:dialog>
         </h:form>
+
+        <p:dialog id="dialogAlterar" header="Alterar Campus" widgetVar="alterarCampusDialog" modal="true" height="100">
+            <h:panelGrid columns="2" >
+                <h:outputLabel value="Descrição" for="itDescricao" />
+                <p:inputText value="#{campusBean.campus.descricao}" id="itDescricao" />
+
+                <h:inputHidden value="#{campusBean.campus.id}" />
+                <p:commandButton value="Alterar" action="#{campusBean.atualizar}" />
+            </h:panelGrid>
+        </p:dialog>         
+
+        <p:confirmDialog global="true" 
+                         showEffect="fade" 
+                         hideEffect="fade"
+                         id="dialogExcluir" 
+                         header="Excluir Campus CF" 
+                         widgetVar="excluirCampusDialog" 
+                         height="100" 
+                         message="Confirma exclusão?" 
+                         >
+            <p:commandButton value="Sim"
+                             update=":lista:dtLista"
+                             styleClass="ui-confirmdialog-yes" 
+                             icon="pi pi-check" />
+
+            <p:commandButton value="Não" 
+                             styleClass="ui-confirmdialog-no" 
+                             icon="pi pi-check" />
+        </p:confirmDialog>
     </ui:define>
 </ui:composition>

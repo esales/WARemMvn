@@ -1,13 +1,16 @@
 package entidade;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
-public class Campus {
+public class Campus implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -15,6 +18,9 @@ public class Campus {
     private Long id;
     
     private String descricao;
+    
+    @OneToMany(mappedBy="campus")
+    private List<Professor> professores;
 
     public Campus() {
     }
@@ -39,6 +45,14 @@ public class Campus {
         this.id = id;
     }
 
+    public List<Professor> getProfessores() {
+        return professores;
+    }
+
+    public void setProfessores(List<Professor> professores) {
+        this.professores = professores;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;

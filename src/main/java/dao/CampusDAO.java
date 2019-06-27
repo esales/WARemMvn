@@ -16,28 +16,38 @@ public class CampusDAO {
     }
     
     public void cadastrar(Campus campus){
+        this.entityManager = emf.createEntityManager();
         this.entityManager.getTransaction().begin();
         this.entityManager.persist(campus);
         this.entityManager.getTransaction().commit();
+        this.entityManager.close();
     }
     
     public void excluir(Campus campus){
+        this.entityManager = emf.createEntityManager();
         this.entityManager.getTransaction().begin();
-        this.entityManager.remove(campus);
+        this.entityManager.remove(this.entityManager.getReference(Campus.class, campus.getId()));
         this.entityManager.getTransaction().commit();
+        this.entityManager.close();
     }
     
     public void alterar(Campus campus){
+        this.entityManager = emf.createEntityManager();
         this.entityManager.getTransaction().begin();
         this.entityManager.merge(campus);
         this.entityManager.getTransaction().commit();
+        this.entityManager.close();
     }
     
     public List<Campus> retornaTodos(){
-        return this.entityManager.createQuery("from Campus").getResultList();
+        this.entityManager = emf.createEntityManager();
+        List<Campus> listaRetorno = this.entityManager.createQuery("from Campus").getResultList();
+        this.entityManager.close();
+        return listaRetorno;
     }
     
     public Campus retornarPorId(Long id){
+        this.entityManager = emf.createEntityManager();
         String sql = "FROM "+Campus.class.getName()+" WHERE id = :id";
         Query query = this.entityManager.createQuery(sql);
         query.setParameter("id", id);

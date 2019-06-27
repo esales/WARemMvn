@@ -1,10 +1,14 @@
 package entidade;
 
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Disciplina {
@@ -16,8 +20,12 @@ public class Disciplina {
     
     private String descricao;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="idEixoProfissional")
     private EixoProfissional eixoProfissional;
+    
+    @OneToMany(mappedBy="disciplina")
+    private List<Professor> professores;
 
     public Disciplina() {
     }
@@ -48,6 +56,14 @@ public class Disciplina {
 
     public void setEixoProfissional(EixoProfissional eixoProfissional) {
         this.eixoProfissional = eixoProfissional;
+    }
+
+    public List<Professor> getProfessores() {
+        return professores;
+    }
+
+    public void setProfessores(List<Professor> professores) {
+        this.professores = professores;
     }
     
     @Override
