@@ -8,7 +8,7 @@
     </h:head>
     <h:body>
         <h:form>
-            <p:menubar>
+<!--            <p:menubar>
                 <p:submenu label="Cadastro">
                     <p:menuitem value="Campus" url="cadastroCampus.xhtml" />
                     <p:menuitem value="Disciplina" url="cadastroDisciplina.xhtml" />
@@ -23,7 +23,11 @@
                     <p:menuitem value="Professor" url="listaProfessor.xhtml" />
                     <p:menuitem value="Vaga" url="listaVaga.xhtml" />
                 </p:submenu>
-            </p:menubar>
+            </p:menubar>-->
+            
+            <p:menubar model="#{loginBean.menuModel}" />
+            
+            
 <!--            <h:panelGrid columns="6">
                 <h:panelGroup>
                     <h:commandLink value="cadastro eixo" action="cadastroEixoProfissional" />

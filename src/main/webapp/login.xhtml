@@ -4,13 +4,15 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Login</title>
     </h:head>
     <h:body>
         <h:form>
             <h:selectOneMenu id="sctPerfil" value="#{loginBean.perfil}" >
-                <f:selectItem itemValue="usuario" itemLabel="Usuário" />
-                <f:selectItem itemValue="admin" itemLabel="Administrador" />
+                <f:selectItems value="#{loginBean.usuarios}" 
+                				var="usuario" 
+                				itemValue="#{usuario}"
+                				itemLabel="#{usuario.login}" />
             </h:selectOneMenu>
             <h:commandButton id="cmbLogin" action="#{loginBean.logar()}" value="Logar"/>
         </h:form>
